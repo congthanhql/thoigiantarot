@@ -3,179 +3,237 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --p:#7F77DD;--p-soft:#EEEDFE;--p-text:#3C3489;
-  --bg0:#faf9f7;--bg1:#ffffff;--bg2:#f3f1ed;--bg3:#e8e5de;
-  --t1:#1c1b1a;--t2:#5c5a56;--t3:#9c9a96;
-  --bd:rgba(0,0,0,0.09);--bd2:rgba(0,0,0,0.15);
+  --gold:#C9A84C;--gold2:#E8C96A;--gold3:#F5E0A0;--gold4:#7A5C1E;
+  --red:#B91C1C;--red2:#DC2626;--red3:#FEE2E2;
+  --dark:#0D0B09;--dark2:#1A1612;--dark3:#252018;--dark4:#332C20;
+  --dark5:#453C28;
+  --t1:#F5EDD4;--t2:#C8B87A;--t3:#8A7A50;
   --r:10px;--rl:14px;
-  --days-bg:#E6F1FB;--days-t:#0C447C;
-  --wks-bg:#EAF3DE;--wks-t:#27500A;
-  --mo-bg:#FAEEDA;--mo-t:#633806;
-  --yr-bg:#FCEBEB;--yr-t:#791F1F;
 }
-.dk{
-  --p:#9b8fe0;--p-soft:#2a2040;--p-text:#c4bef5;
-  --bg0:#111010;--bg1:#1c1b1e;--bg2:#252428;--bg3:#302e35;
-  --t1:#f0eee8;--t2:#a09d96;--t3:#605e58;
-  --bd:rgba(255,255,255,0.09);--bd2:rgba(255,255,255,0.16);
-  --days-bg:#0C2040;--days-t:#85B7EB;
-  --wks-bg:#0f2010;--wks-t:#97C459;
-  --mo-bg:#251800;--mo-t:#FAC775;
-  --yr-bg:#200808;--yr-t:#F09595;
+html,body{background:var(--dark);color:var(--t1);font-family:system-ui,sans-serif;min-height:100vh}
+
+.shell{display:flex;flex-direction:column;height:100vh;background:var(--dark)}
+
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 1.25rem;height:54px;
+  background:var(--dark2);border-bottom:1px solid var(--dark5);
+  flex-shrink:0;
 }
-html,body{background:var(--bg0);color:var(--t1);font-family:system-ui,sans-serif;transition:background .2s,color .2s;min-height:100vh}
-.page{padding:1.5rem 1.25rem}
-
-.login-wrap{max-width:380px;margin:3rem auto 0}
-.login-logo{text-align:center;margin-bottom:2rem}
-.logo-circle{width:52px;height:52px;border-radius:50%;background:var(--p-soft);display:inline-flex;align-items:center;justify-content:center;margin-bottom:.75rem}
-.logo-circle i{font-size:24px;color:var(--p)}
-.login-logo h1{font-size:20px;font-weight:500;color:var(--t1);margin-bottom:4px}
-.login-logo p{font-size:13px;color:var(--t2)}
-.card{background:var(--bg1);border:0.5px solid var(--bd);border-radius:var(--rl);padding:1.75rem}
-.field-label{font-size:12px;font-weight:500;color:var(--t2);letter-spacing:.04em;margin-bottom:6px;display:block}
-.inp-wrap{position:relative}
-.inp-wrap input{width:100%;height:40px;padding:0 40px 0 12px;border:0.5px solid var(--bd2);border-radius:var(--r);background:var(--bg2);color:var(--t1);font-size:14px;outline:none;transition:border-color .15s}
-.inp-wrap input:focus{border-color:var(--p)}
-.eye-btn{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--t3);font-size:17px;display:flex;line-height:1}
-.eye-btn:hover{color:var(--t1)}
-.btn-primary{width:100%;height:40px;background:var(--p);border:none;border-radius:var(--r);color:#fff;font-size:14px;font-weight:500;cursor:pointer;margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity .15s}
-.btn-primary:hover{opacity:.88}
-.err{font-size:12px;color:var(--yr-t);margin-top:8px;text-align:center;min-height:18px}
-.theme-row{display:flex;justify-content:flex-end;margin-bottom:1.25rem}
-.theme-btn{display:flex;align-items:center;gap:5px;background:var(--bg2);border:0.5px solid var(--bd);border-radius:20px;padding:5px 12px;cursor:pointer;font-size:12px;color:var(--t2);transition:background .15s}
-.theme-btn:hover{background:var(--bg3)}
-
-.app-wrap{display:none}
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:0.5px solid var(--bd)}
-.brand{display:flex;align-items:center;gap:8px}
-.brand-dot{width:28px;height:28px;border-radius:8px;background:var(--p-soft);display:flex;align-items:center;justify-content:center}
-.brand-dot i{font-size:15px;color:var(--p)}
-.brand-name{font-size:14px;font-weight:500;color:var(--t1)}
+.brand{display:flex;align-items:center;gap:10px}
+.logo-img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gold)}
+.brand-name{font-size:15px;font-weight:600;color:var(--gold2);letter-spacing:.02em}
+.brand-sub{font-size:10px;color:var(--t3);letter-spacing:.06em;text-transform:uppercase}
 .topbar-right{display:flex;align-items:center;gap:8px}
-.icon-btn{background:none;border:0.5px solid var(--bd);border-radius:var(--r);padding:5px 10px;cursor:pointer;color:var(--t2);font-size:13px;display:flex;align-items:center;gap:5px}
-.icon-btn:hover{background:var(--bg2)}
+.tb-btn{display:flex;align-items:center;gap:5px;background:var(--dark3);border:1px solid var(--dark5);border-radius:var(--r);padding:5px 11px;cursor:pointer;color:var(--t2);font-size:12px;transition:border-color .15s}
+.tb-btn:hover{border-color:var(--gold);color:var(--gold)}
 
-.tabs-row{display:flex;gap:4px;margin-bottom:1.25rem;flex-wrap:wrap}
-.tab{padding:6px 14px;font-size:13px;border-radius:20px;cursor:pointer;background:none;border:0.5px solid transparent;color:var(--t2);transition:all .15s}
-.tab:hover{background:var(--bg2)}
-.tab.on{background:var(--p-soft);color:var(--p-text);border-color:transparent;font-weight:500}
+.body{display:flex;flex:1;overflow:hidden;min-height:0}
 
-.toolbar{display:flex;gap:8px;margin-bottom:1rem}
-.toolbar input{flex:1;height:36px;padding:0 12px;border:0.5px solid var(--bd2);border-radius:var(--r);background:var(--bg2);color:var(--t1);font-size:13px;outline:none}
-.toolbar input:focus{border-color:var(--p)}
-.toolbar select{height:36px;padding:0 10px;border:0.5px solid var(--bd2);border-radius:var(--r);background:var(--bg2);color:var(--t1);font-size:13px;outline:none}
+.sidebar{
+  width:168px;flex-shrink:0;
+  background:var(--dark2);border-right:1px solid var(--dark5);
+  padding:.75rem .6rem;display:flex;flex-direction:column;gap:3px;overflow-y:auto;
+}
+.stab{
+  display:flex;align-items:center;gap:9px;
+  padding:9px 10px;font-size:13px;border-radius:var(--r);
+  cursor:pointer;background:none;border:none;color:var(--t3);
+  width:100%;text-align:left;transition:all .15s;
+}
+.stab:hover{background:var(--dark3);color:var(--t2)}
+.stab.on{background:var(--dark4);color:var(--gold2);border-left:2px solid var(--gold)}
+.stab i{font-size:17px;flex-shrink:0}
+.stab-sub{font-size:10px;color:var(--t3);display:block;margin-top:1px}
+.stab.on .stab-sub{color:var(--gold4)}
 
-.legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:1.25rem}
+.content{flex:1;overflow-y:auto;padding:1.1rem 1.25rem;min-width:0}
+
+.toolbar{display:flex;gap:8px;margin-bottom:.8rem}
+.toolbar input{
+  flex:1;height:36px;padding:0 12px;
+  border:1px solid var(--dark5);border-radius:var(--r);
+  background:var(--dark3);color:var(--t1);font-size:13px;outline:none;min-width:0;
+}
+.toolbar input:focus{border-color:var(--gold)}
+.toolbar input::placeholder{color:var(--t3)}
+.toolbar select{
+  height:36px;padding:0 8px;border:1px solid var(--dark5);border-radius:var(--r);
+  background:var(--dark3);color:var(--t2);font-size:13px;outline:none;
+}
+
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:1rem}
 .leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t3)}
 .dot{width:7px;height:7px;border-radius:50%}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
-.crd{background:var(--bg1);border:0.5px solid var(--bd);border-radius:var(--rl);padding:.9rem 1rem;cursor:pointer;transition:border-color .15s}
-.crd:hover{border-color:var(--p)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:8px}
+.crd{
+  background:var(--dark2);border:1px solid var(--dark5);border-radius:var(--rl);
+  padding:.85rem 1rem;cursor:pointer;transition:border-color .15s,background .15s;
+}
+.crd:hover{border-color:var(--gold);background:var(--dark3)}
 .crd-name{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:2px}
-.crd-suite{font-size:11px;color:var(--t3);margin-bottom:6px}
+.crd-suite{font-size:10px;color:var(--t3);margin-bottom:5px}
 .crd-time{font-size:12px;color:var(--t2);display:flex;align-items:center;gap:4px}
-.pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:20px;margin-top:7px}
-.p-day{background:var(--days-bg);color:var(--days-t)}
-.p-wk{background:var(--wks-bg);color:var(--wks-t)}
-.p-mo{background:var(--mo-bg);color:var(--mo-t)}
-.p-yr{background:var(--yr-bg);color:var(--yr-t)}
+.pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:20px;margin-top:6px}
+.p-day{background:#0C2040;color:#85B7EB}
+.p-wk{background:#0f2010;color:#97C459}
+.p-mo{background:#251800;color:#FAC775}
+.p-yr{background:#200808;color:#F09595}
 
-.detail{display:none;margin-bottom:1rem;background:var(--p-soft);border:0.5px solid var(--bd);border-radius:var(--rl);padding:1.25rem}
+.detail{display:none;margin-bottom:1rem;background:var(--dark3);border:1px solid var(--gold4);border-radius:var(--rl);padding:1.1rem;border-left:3px solid var(--gold)}
 .detail.open{display:block}
-.dh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem}
-.dh-title{font-size:15px;font-weight:500;color:var(--t1)}
-.dh-sub{font-size:12px;color:var(--t2);margin-top:2px}
-.close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--t3);padding:0}
-.close:hover{color:var(--t1)}
-.d-desc{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:.75rem}
-.d-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.d-item{background:var(--bg1);border-radius:var(--r);padding:8px 10px;border:0.5px solid var(--bd)}
-.d-label{font-size:11px;color:var(--t3);margin-bottom:2px}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem}
+.dh-title{font-size:15px;font-weight:500;color:var(--gold2)}
+.dh-sub{font-size:11px;color:var(--t3);margin-top:2px}
+.close-btn{background:none;border:none;cursor:pointer;font-size:18px;color:var(--t3);padding:0}
+.close-btn:hover{color:var(--gold)}
+.d-desc{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:.8rem}
+.d-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.d-item{background:var(--dark2);border-radius:var(--r);padding:8px 10px;border:1px solid var(--dark5)}
+.d-label{font-size:10px;color:var(--t3);margin-bottom:2px;letter-spacing:.05em;text-transform:uppercase}
 .d-val{font-size:13px;font-weight:500;color:var(--t1)}
+.empty{text-align:center;padding:3rem 1rem;color:var(--t3);font-size:13px}
 
-.empty{text-align:center;padding:3rem 1rem;color:var(--t3);font-size:14px}
+.login-shell{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem;background:var(--dark)}
+.login-wrap{width:100%;max-width:360px}
+.login-logo{text-align:center;margin-bottom:1.75rem}
+.logo-circle{width:80px;height:80px;border-radius:50%;border:2px solid var(--gold);display:inline-flex;align-items:center;justify-content:center;margin-bottom:.75rem;overflow:hidden;background:var(--dark2)}
+.logo-circle img{width:100%;height:100%;object-fit:cover}
+.login-logo h1{font-size:22px;font-weight:700;color:var(--gold2);letter-spacing:.04em;margin-bottom:4px}
+.login-logo p{font-size:12px;color:var(--t3);letter-spacing:.05em}
+.divider{width:40px;height:2px;background:var(--gold4);margin:.75rem auto 0;border-radius:2px}
+.lcard{background:var(--dark2);border:1px solid var(--dark5);border-radius:var(--rl);padding:1.5rem}
+.field-label{font-size:11px;font-weight:500;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;display:block}
+.inp-wrap{position:relative}
+.inp-wrap input{
+  width:100%;height:42px;padding:0 40px 0 14px;
+  border:1px solid var(--dark5);border-radius:var(--r);
+  background:var(--dark3);color:var(--t1);font-size:14px;outline:none;transition:border-color .15s;
+}
+.inp-wrap input:focus{border-color:var(--gold)}
+.inp-wrap input::placeholder{color:var(--t3)}
+.eye-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--t3);font-size:17px;display:flex}
+.eye-btn:hover{color:var(--gold)}
+.btn-login{
+  width:100%;height:42px;
+  background:linear-gradient(135deg,var(--gold4),var(--gold),var(--gold4));
+  border:none;border-radius:var(--r);
+  color:#0D0B09;font-size:14px;font-weight:700;cursor:pointer;
+  margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:7px;
+  letter-spacing:.04em;transition:opacity .15s;
+}
+.btn-login:hover{opacity:.88}
+.err{font-size:12px;color:#F09595;margin-top:7px;text-align:center;min-height:16px}
+
+.bottomnav{display:none}
+@media(max-width:600px){
+  .sidebar{display:none}
+  .brand-sub{display:none}
+  .tb-btn span{display:none}
+  .bottomnav{
+    display:flex;flex-shrink:0;
+    background:var(--dark2);border-top:1px solid var(--dark5);
+    overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .bottomnav::-webkit-scrollbar{display:none}
+  .bntab{
+    flex:1;min-width:60px;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:2px;padding:8px 4px 10px;
+    cursor:pointer;background:none;border:none;color:var(--t3);font-size:10px;white-space:nowrap;
+  }
+  .bntab i{font-size:20px}
+  .bntab.on{color:var(--gold2)}
+  .content{padding:.9rem}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:7px}
+  .topbar{height:48px;padding:0 1rem}
+}
 </style>
 
-<div class="page" id="root">
-  <h2 style="position:absolute;width:1px;height:1px;overflow:hidden">Tra cứu thời gian Tarot</h2>
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden">T-Share Trải Bài — Tra cứu thời gian Tarot</h2>
 
-  <div id="loginView">
-    <div class="theme-row">
-      <button class="theme-btn" onclick="toggleTheme()" id="thBtn2"><i class="ti ti-moon" id="thIc2" aria-hidden="true"></i><span id="thLb2">Chế độ tối</span></button>
+<div id="root">
+
+<div id="loginView" class="login-shell">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <div class="logo-circle">
+        <img src="/mnt/user-data/uploads/T-Share.jpg" alt="T-Share logo" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:32px;color:#C9A84C;font-weight:700\'>T</span>'" />
+      </div>
+      <h1>T-SHARE</h1>
+      <p>TRẢI BÀI TAROT · THỜI GIAN</p>
+      <div class="divider"></div>
     </div>
-    <div class="login-wrap">
-      <div class="login-logo">
-        <div class="logo-circle"><i class="ti ti-cards" aria-hidden="true"></i></div>
-        <h1>Tarot thời gian</h1>
-        <p>Tra cứu ý nghĩa thời gian 78 lá bài Tarot</p>
+    <div class="lcard">
+      <label class="field-label">Mã kết nối</label>
+      <div class="inp-wrap">
+        <input type="password" id="codeIn" placeholder="Nhập mã của bạn..." />
+        <button class="eye-btn" onclick="toggleEye()" aria-label="Hiện/ẩn mã"><i class="ti ti-eye" id="eyeIc" aria-hidden="true"></i></button>
       </div>
-      <div class="card">
-        <label class="field-label">Mã kết nối</label>
-        <div class="inp-wrap">
-          <input type="password" id="codeIn" placeholder="Nhập mã của bạn..." />
-          <button class="eye-btn" onclick="toggleEye()" aria-label="Hiện/ẩn mã"><i class="ti ti-eye" id="eyeIc" aria-hidden="true"></i></button>
-        </div>
-        <div class="err" id="errMsg"></div>
-        <button class="btn-primary" onclick="doLogin()"><i class="ti ti-login" aria-hidden="true"></i> Vào tra cứu</button>
+      <div class="err" id="errMsg"></div>
+      <button class="btn-login" onclick="doLogin()"><i class="ti ti-cards" aria-hidden="true"></i> VÀO TRA CỨU</button>
+    </div>
+  </div>
+</div>
+
+<div id="appView" class="shell" style="display:none">
+  <div class="topbar">
+    <div class="brand">
+      <img class="logo-img" src="/mnt/user-data/uploads/T-Share.jpg" alt="T-Share" onerror="this.style.display='none'" />
+      <div>
+        <div class="brand-name">T-Share</div>
+        <div class="brand-sub">Trải bài · Thời gian</div>
       </div>
+    </div>
+    <div class="topbar-right">
+      <button class="tb-btn" onclick="doLogout()"><i class="ti ti-logout" aria-hidden="true"></i><span>Đăng xuất</span></button>
     </div>
   </div>
 
-  <div class="app-wrap" id="appView">
-    <div class="topbar">
-      <div class="brand">
-        <div class="brand-dot"><i class="ti ti-cards" aria-hidden="true"></i></div>
-        <span class="brand-name">Tarot thời gian</span>
+  <div class="body">
+    <nav class="sidebar" id="sidebarNav"></nav>
+    <div class="content">
+      <div class="detail" id="detail"></div>
+      <div class="toolbar">
+        <input type="text" id="q" placeholder="Tìm tên lá bài..." oninput="render()" />
+        <select id="flt" onchange="render()">
+          <option value="">Tất cả</option>
+          <option value="Ngày">Ngày</option>
+          <option value="Tuần">Tuần</option>
+          <option value="Tháng">Tháng</option>
+          <option value="Năm">Năm</option>
+        </select>
       </div>
-      <div class="topbar-right">
-        <button class="icon-btn" onclick="toggleTheme()" id="thBtn"><i class="ti ti-moon" id="thIc" aria-hidden="true"></i><span id="thLb">Tối</span></button>
-        <button class="icon-btn" onclick="doLogout()"><i class="ti ti-logout" aria-hidden="true"></i> Đăng xuất</button>
+      <div class="legend">
+        <div class="leg"><div class="dot" style="background:#85B7EB"></div>Ngày</div>
+        <div class="leg"><div class="dot" style="background:#97C459"></div>Tuần</div>
+        <div class="leg"><div class="dot" style="background:#FAC775"></div>Tháng</div>
+        <div class="leg"><div class="dot" style="background:#F09595"></div>Năm+</div>
       </div>
+      <div class="grid" id="grid"></div>
     </div>
-
-    <div class="tabs-row" id="tabsRow"></div>
-
-    <div class="detail" id="detail"></div>
-
-    <div class="toolbar">
-      <input type="text" id="q" placeholder="Tìm tên lá bài..." oninput="render()" />
-      <select id="flt" onchange="render()">
-        <option value="">Tất cả</option>
-        <option value="Ngày">Ngày</option>
-        <option value="Tuần">Tuần</option>
-        <option value="Tháng">Tháng</option>
-        <option value="Năm">Năm</option>
-      </select>
-    </div>
-
-    <div class="legend">
-      <div class="leg"><div class="dot" style="background:var(--days-t)"></div>Ngày</div>
-      <div class="leg"><div class="dot" style="background:var(--wks-t)"></div>Tuần</div>
-      <div class="leg"><div class="dot" style="background:var(--mo-t)"></div>Tháng</div>
-      <div class="leg"><div class="dot" style="background:var(--yr-t)"></div>Năm+</div>
-    </div>
-
-    <div class="grid" id="grid"></div>
   </div>
+
+  <nav class="bottomnav" id="bottomNav"></nav>
+</div>
+
 </div>
 
 <script>
 const CODES=["L9pHo3","Thanh123@","admin","Admin"];
-let tab="major",dark=false,eyeOpen=false;
+let tab="major",eyeOpen=false;
 
 const TABS=[
-  {id:"major",label:"Ẩn chính",sub:"Major Arcana"},
-  {id:"cups",label:"Cốc",sub:"Cups · Nước · Thu"},
-  {id:"wands",label:"Gậy",sub:"Wands · Lửa · Hè"},
-  {id:"swords",label:"Kiếm",sub:"Swords · Khí · Xuân"},
-  {id:"pentacles",label:"Tiền",sub:"Pentacles · Đất · Đông"},
+  {id:"major",label:"Ẩn chính",sub:"Major Arcana",icon:"ti-circles"},
+  {id:"cups",label:"Cốc",sub:"Cups · Nước",icon:"ti-glass-full"},
+  {id:"wands",label:"Gậy",sub:"Wands · Lửa",icon:"ti-flame"},
+  {id:"swords",label:"Kiếm",sub:"Swords · Khí",icon:"ti-sword"},
+  {id:"pentacles",label:"Tiền",sub:"Pentacles · Đất",icon:"ti-coin"},
 ];
 
 const DATA={
   major:[
-    {n:"0 – The Fool",t:"Ngay lập tức / 1–3 ngày",r:"Ngày",d:"Khởi đầu mới bất ngờ. Thường xảy ra trong vòng 1–3 ngày.",el:"Không khí",s:"Xuân"},
+    {n:"0 – The Fool",t:"1–3 ngày",r:"Ngày",d:"Khởi đầu mới bất ngờ. Thường xảy ra trong vòng 1–3 ngày.",el:"Không khí",s:"Xuân"},
     {n:"I – The Magician",t:"1 tuần",r:"Tuần",d:"Mọi thứ đang sắp xếp để bắt đầu. Hành động trong tuần tới.",el:"Không khí",s:"Tất cả mùa"},
     {n:"II – The High Priestess",t:"1 tháng",r:"Tháng",d:"Chờ đợi và quan sát. Câu trả lời rõ dần trong 1 tháng.",el:"Nước",s:"Đông"},
     {n:"III – The Empress",t:"3–9 tháng",r:"Tháng",d:"Chu kỳ nở rộ. Gắn với 3–9 tháng, đặc biệt mùa hè.",el:"Đất",s:"Hè"},
@@ -270,13 +328,12 @@ function pill(r){
   if(r==="Tháng") return '<span class="pill p-mo">Tháng</span>';
   return '<span class="pill p-yr">Năm+</span>';
 }
-
 function subOf(id){return TABS.find(t=>t.id===id).sub}
 
 function render(){
   const q=document.getElementById("q").value.toLowerCase();
   const f=document.getElementById("flt").value;
-  const list=DATA[tab].filter(c=>(!q||c.n.toLowerCase().includes(q)||c.t.toLowerCase().includes(q))&&(!f||c.r===f));
+  const list=DATA[tab].filter(c=>(!q||c.n.toLowerCase().includes(q))&&(!f||c.r===f));
   const g=document.getElementById("grid");
   if(!list.length){g.innerHTML='<div class="empty"><i class="ti ti-search" aria-hidden="true" style="font-size:28px;display:block;margin-bottom:8px"></i>Không tìm thấy lá bài phù hợp</div>';return;}
   g.innerHTML=list.map(c=>`
@@ -295,7 +352,7 @@ function showDetail(i){
   d.innerHTML=`
     <div class="dh">
       <div><div class="dh-title">${c.n}</div><div class="dh-sub">${subOf(tab)}</div></div>
-      <button class="close" onclick="closeD()" aria-label="Đóng"><i class="ti ti-x" aria-hidden="true"></i></button>
+      <button class="close-btn" onclick="closeD()" aria-label="Đóng"><i class="ti ti-x" aria-hidden="true"></i></button>
     </div>
     <p class="d-desc">${c.d}</p>
     <div class="d-meta">
@@ -306,53 +363,44 @@ function showDetail(i){
     </div>`;
   d.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-
 function closeD(){document.getElementById("detail").className="detail";}
 
-function buildTabs(){
-  document.getElementById("tabsRow").innerHTML=TABS.map(t=>`
-    <button class="tab${t.id===tab?" on":""}" onclick="switchTab('${t.id}')">${t.label}</button>`).join("");
+function buildNav(){
+  document.getElementById("sidebarNav").innerHTML=TABS.map(t=>`
+    <button class="stab${t.id===tab?" on":""}" onclick="switchTab('${t.id}')">
+      <i class="ti ${t.icon}" aria-hidden="true"></i>
+      <span><span>${t.label}</span><span class="stab-sub">${t.sub}</span></span>
+    </button>`).join("");
+  document.getElementById("bottomNav").innerHTML=TABS.map(t=>`
+    <button class="bntab${t.id===tab?" on":""}" onclick="switchTab('${t.id}')">
+      <i class="ti ${t.icon}" aria-hidden="true"></i>${t.label}
+    </button>`).join("");
 }
-
-function switchTab(id){
-  tab=id;closeD();buildTabs();render();
-}
-
-function toggleTheme(){
-  dark=!dark;
-  document.getElementById("root").className=dark?"dk":"";
-  const icon=dark?"ti ti-sun":"ti ti-moon";
-  const lb1=dark?"Sáng":"Tối";
-  const lb2=dark?"Chế độ sáng":"Chế độ tối";
-  document.getElementById("thIc").className=icon;document.getElementById("thLb").textContent=lb1;
-  document.getElementById("thIc2").className=icon;document.getElementById("thLb2").textContent=lb2;
-}
+function switchTab(id){tab=id;closeD();buildNav();render();}
 
 function toggleEye(){
   eyeOpen=!eyeOpen;
   document.getElementById("codeIn").type=eyeOpen?"text":"password";
   document.getElementById("eyeIc").className=eyeOpen?"ti ti-eye-off":"ti ti-eye";
 }
-
 function doLogin(){
   const v=document.getElementById("codeIn").value.trim();
   if(CODES.includes(v)){
     document.getElementById("loginView").style.display="none";
-    document.getElementById("appView").style.display="block";
-    buildTabs();render();
+    document.getElementById("appView").style.display="flex";
+    buildNav();render();
   } else {
     document.getElementById("errMsg").textContent="Mã không đúng, vui lòng thử lại.";
   }
 }
-
 function doLogout(){
-  document.getElementById("loginView").style.display="block";
+  document.getElementById("loginView").style.display="flex";
   document.getElementById("appView").style.display="none";
   document.getElementById("codeIn").value="";
   document.getElementById("errMsg").textContent="";
-  eyeOpen=false;document.getElementById("codeIn").type="password";
+  eyeOpen=false;
+  document.getElementById("codeIn").type="password";
   document.getElementById("eyeIc").className="ti ti-eye";
 }
-
 document.getElementById("codeIn").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
 </script>
