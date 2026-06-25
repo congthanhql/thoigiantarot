@@ -1,8 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>T-Share · Trải Bài Tarot</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --gold:#C9A84C;--gold2:#E8C96A;--gold3:#F5E0A0;--gold4:#7A5C1E;
-  --red:#B91C1C;--red2:#DC2626;--red3:#FEE2E2;
   --dark:#0D0B09;--dark2:#1A1612;--dark3:#252018;--dark4:#332C20;
   --dark5:#453C28;
   --t1:#F5EDD4;--t2:#C8B87A;--t3:#8A7A50;
@@ -10,8 +16,6 @@
 }
 html,body{background:#070605;color:var(--t1);font-family:system-ui,sans-serif;min-height:100vh}
 
-/* Mini-app canvas: on wide viewports this renders inside a phone-sized frame,
-   so the layout always matches how it will appear embedded in a host app. */
 .app-stage{
   min-height:100vh;display:flex;align-items:center;justify-content:center;
   padding:2rem 1rem;
@@ -28,6 +32,53 @@ html,body{background:#070605;color:var(--t1);font-family:system-ui,sans-serif;mi
   position:relative;
 }
 
+/* ── LOGIN ── */
+.login-shell{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;padding:1.5rem;background:var(--dark);
+}
+.login-wrap{width:100%;max-width:320px}
+.login-logo{text-align:center;margin-bottom:1.75rem}
+.logo-circle{
+  width:76px;height:76px;border-radius:50%;border:2px solid var(--gold);
+  display:inline-flex;align-items:center;justify-content:center;
+  margin-bottom:.75rem;overflow:hidden;background:var(--dark2);
+}
+.logo-circle img{width:100%;height:100%;object-fit:cover}
+.logo-circle .fallback{font-size:30px;color:var(--gold);font-weight:700}
+.login-logo h1{font-size:21px;font-weight:700;color:var(--gold2);letter-spacing:.04em;margin-bottom:4px}
+.login-logo p{font-size:11px;color:var(--t3);letter-spacing:.05em;text-transform:uppercase}
+.divider{width:40px;height:2px;background:var(--gold4);margin:.75rem auto 0;border-radius:2px}
+.lcard{background:var(--dark2);border:1px solid var(--dark5);border-radius:var(--rl);padding:1.4rem}
+.field-label{font-size:11px;font-weight:500;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;display:block}
+.inp-wrap{position:relative}
+.inp-wrap input{
+  width:100%;height:42px;padding:0 40px 0 14px;
+  border:1px solid var(--dark5);border-radius:var(--r);
+  background:var(--dark3);color:var(--t1);font-size:14px;outline:none;transition:border-color .15s;
+}
+.inp-wrap input:focus{border-color:var(--gold)}
+.inp-wrap input::placeholder{color:var(--t3)}
+.eye-btn{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;color:var(--t3);font-size:17px;
+  display:flex;align-items:center;
+}
+.eye-btn:hover{color:var(--gold)}
+.btn-login{
+  width:100%;height:42px;
+  background:linear-gradient(135deg,var(--gold4),var(--gold),var(--gold4));
+  border:none;border-radius:var(--r);
+  color:#0D0B09;font-size:14px;font-weight:700;cursor:pointer;
+  margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:7px;
+  letter-spacing:.04em;transition:opacity .15s;
+}
+.btn-login:hover{opacity:.88}
+.err{font-size:12px;color:#F09595;margin-top:7px;text-align:center;min-height:16px}
+
+/* ── APP ── */
+#appView{display:none;flex-direction:column;height:100%}
+
 .topbar{
   display:flex;align-items:center;justify-content:space-between;
   padding:0 1rem;height:54px;
@@ -38,8 +89,11 @@ html,body{background:#070605;color:var(--t1);font-family:system-ui,sans-serif;mi
 .logo-img{width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gold)}
 .brand-name{font-size:14px;font-weight:600;color:var(--gold2);letter-spacing:.02em}
 .brand-sub{font-size:10px;color:var(--t3);letter-spacing:.06em;text-transform:uppercase}
-.topbar-right{display:flex;align-items:center;gap:8px}
-.tb-btn{display:flex;align-items:center;gap:5px;background:var(--dark3);border:1px solid var(--dark5);border-radius:var(--r);padding:5px 10px;cursor:pointer;color:var(--t2);font-size:12px;transition:border-color .15s}
+.tb-btn{
+  display:flex;align-items:center;gap:5px;
+  background:var(--dark3);border:1px solid var(--dark5);border-radius:var(--r);
+  padding:5px 10px;cursor:pointer;color:var(--t2);font-size:12px;transition:border-color .15s;
+}
 .tb-btn:hover{border-color:var(--gold);color:var(--gold)}
 
 .body{flex:1;overflow:hidden;min-height:0;display:flex}
@@ -67,6 +121,7 @@ html,body{background:#070605;color:var(--t1);font-family:system-ui,sans-serif;mi
   background:var(--dark2);border:1px solid var(--dark5);border-radius:var(--rl);
   padding:.8rem .9rem;cursor:pointer;transition:border-color .15s,background .15s;
 }
+.crd:hover{border-color:var(--gold4);background:var(--dark3)}
 .crd:active{border-color:var(--gold);background:var(--dark3)}
 .crd-name{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:2px}
 .crd-suite{font-size:10px;color:var(--t3);margin-bottom:5px}
@@ -82,7 +137,7 @@ html,body{background:#070605;color:var(--t1);font-family:system-ui,sans-serif;mi
 .dh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem}
 .dh-title{font-size:15px;font-weight:500;color:var(--gold2)}
 .dh-sub{font-size:11px;color:var(--t3);margin-top:2px}
-.close-btn{background:none;border:none;cursor:pointer;font-size:18px;color:var(--t3);padding:0}
+.close-btn{background:none;border:none;cursor:pointer;font-size:18px;color:var(--t3);padding:0;display:flex}
 .close-btn:hover{color:var(--gold)}
 .d-desc{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:.8rem}
 .d-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px}
@@ -91,39 +146,7 @@ html,body{background:#070605;color:var(--t1);font-family:system-ui,sans-serif;mi
 .d-val{font-size:13px;font-weight:500;color:var(--t1)}
 .empty{text-align:center;padding:3rem 1rem;color:var(--t3);font-size:13px}
 
-.login-shell{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:1.5rem;background:var(--dark)}
-.login-wrap{width:100%;max-width:320px}
-.login-logo{text-align:center;margin-bottom:1.75rem}
-.logo-circle{width:76px;height:76px;border-radius:50%;border:2px solid var(--gold);display:inline-flex;align-items:center;justify-content:center;margin-bottom:.75rem;overflow:hidden;background:var(--dark2)}
-.logo-circle img{width:100%;height:100%;object-fit:cover}
-.login-logo h1{font-size:21px;font-weight:700;color:var(--gold2);letter-spacing:.04em;margin-bottom:4px}
-.login-logo p{font-size:11px;color:var(--t3);letter-spacing:.05em}
-.divider{width:40px;height:2px;background:var(--gold4);margin:.75rem auto 0;border-radius:2px}
-.lcard{background:var(--dark2);border:1px solid var(--dark5);border-radius:var(--rl);padding:1.4rem}
-.field-label{font-size:11px;font-weight:500;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;display:block}
-.inp-wrap{position:relative}
-.inp-wrap input{
-  width:100%;height:42px;padding:0 40px 0 14px;
-  border:1px solid var(--dark5);border-radius:var(--r);
-  background:var(--dark3);color:var(--t1);font-size:14px;outline:none;transition:border-color .15s;
-}
-.inp-wrap input:focus{border-color:var(--gold)}
-.inp-wrap input::placeholder{color:var(--t3)}
-.eye-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--t3);font-size:17px;display:flex}
-.eye-btn:hover{color:var(--gold)}
-.btn-login{
-  width:100%;height:42px;
-  background:linear-gradient(135deg,var(--gold4),var(--gold),var(--gold4));
-  border:none;border-radius:var(--r);
-  color:#0D0B09;font-size:14px;font-weight:700;cursor:pointer;
-  margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:7px;
-  letter-spacing:.04em;transition:opacity .15s;
-}
-.btn-login:hover{opacity:.88}
-.err{font-size:12px;color:#F09595;margin-top:7px;text-align:center;min-height:16px}
-
-/* Bottom tab bar — primary navigation for the mini app, always pinned to the
-   bottom of the screen regardless of viewport width */
+/* ── BOTTOM NAV ── */
 .bottomnav{
   display:flex;flex-shrink:0;
   background:var(--dark2);border-top:1px solid var(--dark5);
@@ -142,53 +165,59 @@ html,body{background:#070605;color:var(--t1);font-family:system-ui,sans-serif;mi
   width:22px;height:2px;border-radius:2px;background:var(--gold);
 }
 </style>
-
-<h2 style="position:absolute;width:1px;height:1px;overflow:hidden">T-Share Trải Bài — Tra cứu thời gian Tarot</h2>
+</head>
+<body>
 
 <div class="app-stage">
 <div id="root" class="shell">
 
+<!-- LOGIN -->
 <div id="loginView" class="login-shell">
   <div class="login-wrap">
     <div class="login-logo">
       <div class="logo-circle">
-        <img src="/mnt/user-data/uploads/T-Share.jpg" alt="T-Share logo" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:30px;color:#C9A84C;font-weight:700\'>T</span>'" />
+        <span class="fallback">T</span>
       </div>
       <h1>T-SHARE</h1>
-      <p>TRẢI BÀI TAROT · THỜI GIAN</p>
+      <p>Trải Bài Tarot · Thời Gian</p>
       <div class="divider"></div>
     </div>
     <div class="lcard">
-      <label class="field-label">Mã kết nối</label>
+      <label class="field-label" for="codeIn">Mã kết nối</label>
       <div class="inp-wrap">
-        <input type="password" id="codeIn" placeholder="Nhập mã của bạn..." />
-        <button class="eye-btn" onclick="toggleEye()" aria-label="Hiện/ẩn mã"><i class="ti ti-eye" id="eyeIc" aria-hidden="true"></i></button>
+        <input type="password" id="codeIn" placeholder="Nhập mã của bạn..." autocomplete="off"/>
+        <button class="eye-btn" onclick="toggleEye()" aria-label="Hiện/ẩn mã">
+          <i class="ti ti-eye" id="eyeIc"></i>
+        </button>
       </div>
-      <div class="err" id="errMsg"></div>
-      <button class="btn-login" onclick="doLogin()"><i class="ti ti-cards" aria-hidden="true"></i> VÀO TRA CỨU</button>
+      <div class="err" id="errMsg" role="alert"></div>
+      <button class="btn-login" onclick="doLogin()">
+        <i class="ti ti-cards"></i> VÀO TRA CỨU
+      </button>
     </div>
   </div>
 </div>
 
-<div id="appView" style="display:none;flex-direction:column;height:100%">
+<!-- APP -->
+<div id="appView">
   <div class="topbar">
     <div class="brand">
-      <img class="logo-img" src="/mnt/user-data/uploads/T-Share.jpg" alt="T-Share" onerror="this.style.display='none'" />
+      <div style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--gold);background:var(--dark2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--gold)">T</div>
       <div>
         <div class="brand-name">T-Share</div>
         <div class="brand-sub">Trải bài · Thời gian</div>
       </div>
     </div>
-    <div class="topbar-right">
-      <button class="tb-btn" onclick="doLogout()"><i class="ti ti-logout" aria-hidden="true"></i><span>Đăng xuất</span></button>
-    </div>
+    <button class="tb-btn" onclick="doLogout()">
+      <i class="ti ti-logout"></i><span>Đăng xuất</span>
+    </button>
   </div>
 
   <div class="body">
     <div class="content">
       <div class="detail" id="detail"></div>
       <div class="toolbar">
-        <input type="text" id="q" placeholder="Tìm tên lá bài..." oninput="render()" />
+        <input type="text" id="q" placeholder="Tìm tên lá bài..." oninput="render()"/>
         <select id="flt" onchange="render()">
           <option value="">Tất cả</option>
           <option value="Ngày">Ngày</option>
@@ -210,22 +239,22 @@ html,body{background:#070605;color:var(--t1);font-family:system-ui,sans-serif;mi
   <nav class="bottomnav" id="bottomNav"></nav>
 </div>
 
-</div>
-</div>
+</div><!-- .shell -->
+</div><!-- .app-stage -->
 
 <script>
-const CODES=["L9pHo3","Thanh123@","admin","Admin"];
-let tab="major",eyeOpen=false;
+const CODES = ["L9pHo3","Thanh123@","admin","Admin"];
+let tab = "major", eyeOpen = false;
 
-const TABS=[
-  {id:"major",label:"Ẩn chính",sub:"Major Arcana",icon:"ti-circles"},
-  {id:"cups",label:"Cốc",sub:"Cups · Nước",icon:"ti-glass-full"},
-  {id:"wands",label:"Gậy",sub:"Wands · Lửa",icon:"ti-flame"},
-  {id:"swords",label:"Kiếm",sub:"Swords · Khí",icon:"ti-sword"},
-  {id:"pentacles",label:"Tiền",sub:"Pentacles · Đất",icon:"ti-coin"},
+const TABS = [
+  {id:"major",    label:"Ẩn chính", sub:"Major Arcana",    icon:"ti-circles"},
+  {id:"cups",     label:"Cốc",      sub:"Cups · Nước",     icon:"ti-glass-full"},
+  {id:"wands",    label:"Gậy",      sub:"Wands · Lửa",     icon:"ti-flame"},
+  {id:"swords",   label:"Kiếm",     sub:"Swords · Khí",    icon:"ti-sword"},
+  {id:"pentacles",label:"Tiền",     sub:"Pentacles · Đất", icon:"ti-coin"},
 ];
 
-const DATA={
+const DATA = {
   major:[
     {n:"0 – The Fool",t:"1–3 ngày",r:"Ngày",d:"Khởi đầu mới bất ngờ. Thường xảy ra trong vòng 1–3 ngày.",el:"Không khí",s:"Xuân"},
     {n:"I – The Magician",t:"1 tuần",r:"Tuần",d:"Mọi thứ đang sắp xếp để bắt đầu. Hành động trong tuần tới.",el:"Không khí",s:"Tất cả mùa"},
@@ -322,31 +351,34 @@ function pill(r){
   if(r==="Tháng") return '<span class="pill p-mo">Tháng</span>';
   return '<span class="pill p-yr">Năm+</span>';
 }
-function subOf(id){return TABS.find(t=>t.id===id).sub}
+function subOf(id){ return TABS.find(t=>t.id===id).sub; }
 
 function render(){
-  const q=document.getElementById("q").value.toLowerCase();
-  const f=document.getElementById("flt").value;
-  const list=DATA[tab].filter(c=>(!q||c.n.toLowerCase().includes(q))&&(!f||c.r===f));
-  const g=document.getElementById("grid");
-  if(!list.length){g.innerHTML='<div class="empty"><i class="ti ti-search" aria-hidden="true" style="font-size:28px;display:block;margin-bottom:8px"></i>Không tìm thấy lá bài phù hợp</div>';return;}
-  g.innerHTML=list.map(c=>`
+  const q = document.getElementById("q").value.toLowerCase();
+  const f = document.getElementById("flt").value;
+  const list = DATA[tab].filter(c=>(!q||c.n.toLowerCase().includes(q))&&(!f||c.r===f));
+  const g = document.getElementById("grid");
+  if(!list.length){
+    g.innerHTML='<div class="empty"><i class="ti ti-search" style="font-size:28px;display:block;margin-bottom:8px"></i>Không tìm thấy lá bài phù hợp</div>';
+    return;
+  }
+  g.innerHTML = list.map(c=>`
     <div class="crd" onclick="showDetail(${DATA[tab].indexOf(c)})">
       <div class="crd-name">${c.n}</div>
       <div class="crd-suite">${subOf(tab)}</div>
-      <div class="crd-time"><i class="ti ti-clock" aria-hidden="true" style="font-size:12px"></i>${c.t}</div>
+      <div class="crd-time"><i class="ti ti-clock" style="font-size:12px"></i>${c.t}</div>
       ${pill(c.r)}
     </div>`).join("");
 }
 
 function showDetail(i){
-  const c=DATA[tab][i];
-  const d=document.getElementById("detail");
-  d.className="detail open";
-  d.innerHTML=`
+  const c = DATA[tab][i];
+  const d = document.getElementById("detail");
+  d.className = "detail open";
+  d.innerHTML = `
     <div class="dh">
       <div><div class="dh-title">${c.n}</div><div class="dh-sub">${subOf(tab)}</div></div>
-      <button class="close-btn" onclick="closeD()" aria-label="Đóng"><i class="ti ti-x" aria-hidden="true"></i></button>
+      <button class="close-btn" onclick="closeD()" aria-label="Đóng"><i class="ti ti-x"></i></button>
     </div>
     <p class="d-desc">${c.d}</p>
     <div class="d-meta">
@@ -357,39 +389,45 @@ function showDetail(i){
     </div>`;
   d.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-function closeD(){document.getElementById("detail").className="detail";}
+function closeD(){ document.getElementById("detail").className="detail"; }
 
 function buildNav(){
-  document.getElementById("bottomNav").innerHTML=TABS.map(t=>`
+  document.getElementById("bottomNav").innerHTML = TABS.map(t=>`
     <button class="bntab${t.id===tab?" on":""}" onclick="switchTab('${t.id}')">
-      <i class="ti ${t.icon}" aria-hidden="true"></i>${t.label}
+      <i class="ti ${t.icon}"></i>${t.label}
     </button>`).join("");
 }
-function switchTab(id){tab=id;closeD();buildNav();render();}
+function switchTab(id){ tab=id; closeD(); buildNav(); render(); }
 
 function toggleEye(){
-  eyeOpen=!eyeOpen;
-  document.getElementById("codeIn").type=eyeOpen?"text":"password";
-  document.getElementById("eyeIc").className=eyeOpen?"ti ti-eye-off":"ti ti-eye";
+  eyeOpen = !eyeOpen;
+  document.getElementById("codeIn").type = eyeOpen ? "text" : "password";
+  document.getElementById("eyeIc").className = eyeOpen ? "ti ti-eye-off" : "ti ti-eye";
 }
 function doLogin(){
-  const v=document.getElementById("codeIn").value.trim();
+  const v = document.getElementById("codeIn").value.trim();
   if(CODES.includes(v)){
-    document.getElementById("loginView").style.display="none";
-    document.getElementById("appView").style.display="flex";
-    buildNav();render();
+    document.getElementById("loginView").style.display = "none";
+    const av = document.getElementById("appView");
+    av.style.display = "flex";
+    buildNav(); render();
   } else {
-    document.getElementById("errMsg").textContent="Mã không đúng, vui lòng thử lại.";
+    document.getElementById("errMsg").textContent = "Mã không đúng, vui lòng thử lại.";
   }
 }
 function doLogout(){
-  document.getElementById("loginView").style.display="flex";
-  document.getElementById("appView").style.display="none";
-  document.getElementById("codeIn").value="";
-  document.getElementById("errMsg").textContent="";
-  eyeOpen=false;
-  document.getElementById("codeIn").type="password";
-  document.getElementById("eyeIc").className="ti ti-eye";
+  document.getElementById("loginView").style.display = "flex";
+  const av = document.getElementById("appView");
+  av.style.display = "none";
+  document.getElementById("codeIn").value = "";
+  document.getElementById("errMsg").textContent = "";
+  eyeOpen = false;
+  document.getElementById("codeIn").type = "password";
+  document.getElementById("eyeIc").className = "ti ti-eye";
 }
-document.getElementById("codeIn").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
+document.getElementById("codeIn").addEventListener("keydown", e=>{
+  if(e.key==="Enter") doLogin();
+});
 </script>
+</body>
+</html>
